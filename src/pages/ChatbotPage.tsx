@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   MessageCircle, Send, Bot, User, Brain, Heart, Target,
   Moon, Shield, Users, TrendingDown, Clock, Star, CheckCircle,
-  ArrowRight, Play, RotateCcw, Eye, AlertTriangle, Sparkles
+  ArrowRight, Play, RotateCcw, Eye, AlertTriangle, Sparkles, Compass
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -66,15 +66,20 @@ const ChatbotPage = () => {
   const [showPlanSelection, setShowPlanSelection] = useState(false);
 
   const mentalHealthIssues = [
-    { id: 'anxiety', name: 'Anxiety', icon: Brain, color: 'from-blue-500 to-cyan-500', description: 'Worry, fear, and nervousness' },
-    { id: 'depression', name: 'Depression', icon: Heart, color: 'from-purple-500 to-pink-500', description: 'Sadness, hopelessness, low mood' },
-    { id: 'stress', name: 'Stress', icon: Target, color: 'from-orange-500 to-red-500', description: 'Overwhelm and pressure' },
-    { id: 'motivation', name: 'Low Motivation', icon: TrendingDown, color: 'from-gray-500 to-gray-600', description: 'Lack of drive and energy' },
-    { id: 'relationships', name: 'Relationship Issues', icon: Users, color: 'from-green-500 to-teal-500', description: 'Interpersonal difficulties' }
+    { id: 'anxiety-disorders', name: 'Anxiety Disorders', icon: Brain, color: 'from-blue-500 to-cyan-500', description: 'Persistent worry, fear, and anxiety symptoms' },
+    { id: 'depression', name: 'Depression & Low Mood', icon: Heart, color: 'from-purple-500 to-pink-500', description: 'Sadness, hopelessness, and depressive symptoms' },
+    { id: 'stress', name: 'Stress & Burnout', icon: Target, color: 'from-orange-500 to-red-500', description: 'Overwhelm, exhaustion, and chronic stress' },
+    { id: 'insomnia', name: 'Insomnia & Sleep Problems', icon: Moon, color: 'from-indigo-500 to-purple-500', description: 'Sleep difficulties and sleep disorders' },
+    { id: 'trauma', name: 'Trauma & PTSD', icon: Shield, color: 'from-red-500 to-pink-500', description: 'Trauma responses and post-traumatic stress' },
+    { id: 'self-esteem', name: 'Low Self-Esteem & Self-Doubt', icon: Star, color: 'from-yellow-500 to-orange-500', description: 'Poor self-image and confidence issues' },
+    { id: 'emotional-dysregulation', name: 'Emotional Dysregulation', icon: Heart, color: 'from-pink-500 to-rose-500', description: 'Difficulty managing and controlling emotions' },
+    { id: 'negative-thoughts', name: 'Negative Thought Patterns & Overthinking', icon: Brain, color: 'from-gray-500 to-slate-500', description: 'Rumination and persistent negative thinking' },
+    { id: 'social-anxiety', name: 'Social Anxiety', icon: Users, color: 'from-teal-500 to-cyan-500', description: 'Fear and anxiety in social situations' },
+    { id: 'adjustment', name: 'Adjustment & Identity Issues', icon: Compass, color: 'from-green-500 to-teal-500', description: 'Life transitions and identity concerns' }
   ];
 
   const questionnaires = {
-    anxiety: [
+    'anxiety-disorders': [
       { id: '1', text: 'How often do you experience anxiety in a typical week? (Please describe in detail)', type: 'text', required: true },
       { id: '2', text: 'Do you experience physical symptoms like sweating, rapid heartbeat, or trembling? Please describe what you feel.', type: 'text', required: true },
       { id: '3', text: 'Which situations typically trigger your anxiety? Please list them.', type: 'text', required: true },
@@ -133,6 +138,90 @@ const ChatbotPage = () => {
       { id: '8', text: 'How supportive do you feel your relationships are? Please explain.', type: 'text', required: true },
       { id: '9', text: 'What relationship patterns do you want to change?', type: 'text', required: false },
       { id: '10', text: 'What does a healthy relationship look like to you?', type: 'text', required: false }
+    ],
+    insomnia: [
+      { id: '1', text: 'How many hours of sleep do you typically get per night? Please describe your sleep patterns.', type: 'text', required: true },
+      { id: '2', text: 'How long does it usually take you to fall asleep? Please explain any difficulties.', type: 'text', required: true },
+      { id: '3', text: 'Do you wake up frequently during the night? Please describe your experience.', type: 'text', required: true },
+      { id: '4', text: 'How do you feel when you wake up in the morning? Please describe your energy levels.', type: 'text', required: true },
+      { id: '5', text: 'What factors do you think contribute to your sleep problems? Please list them.', type: 'text', required: true },
+      { id: '6', text: 'Do you have a bedtime routine? Please describe what you do before sleep.', type: 'text', required: true },
+      { id: '7', text: 'How does poor sleep affect your daily life? Please explain the impact.', type: 'text', required: true },
+      { id: '8', text: 'Do you use any sleep aids or medications? Please describe what you use.', type: 'text', required: false },
+      { id: '9', text: 'How long have you been experiencing sleep problems? Please provide details.', type: 'text', required: true },
+      { id: '10', text: 'Describe your ideal sleep environment and routine:', type: 'text', required: false }
+    ],
+    trauma: [
+      { id: '1', text: 'Have you experienced or witnessed a traumatic event? Please share what you feel comfortable discussing.', type: 'text', required: true },
+      { id: '2', text: 'Do you experience flashbacks or intrusive memories? Please describe these experiences.', type: 'text', required: true },
+      { id: '3', text: 'Do you avoid certain places, people, or situations? Please explain what you avoid and why.', type: 'text', required: true },
+      { id: '4', text: 'How has this trauma affected your relationships? Please describe the impact.', type: 'text', required: true },
+      { id: '5', text: 'Do you experience nightmares or sleep disturbances? Please describe your sleep patterns.', type: 'text', required: true },
+      { id: '6', text: 'How do you feel about your safety in daily life? Please explain your concerns.', type: 'text', required: true },
+      { id: '7', text: 'Do you experience emotional numbness or detachment? Please describe these feelings.', type: 'text', required: true },
+      { id: '8', text: 'How do you currently cope with trauma-related symptoms? Please list your strategies.', type: 'text', required: false },
+      { id: '9', text: 'Do you have a support system? Please describe your support network.', type: 'text', required: true },
+      { id: '10', text: 'What would help you feel safer and more in control?', type: 'text', required: false }
+    ],
+    'self-esteem': [
+      { id: '1', text: 'How do you typically view yourself? Please describe your self-perception.', type: 'text', required: true },
+      { id: '2', text: 'Do you often doubt your abilities or decisions? Please explain when this happens.', type: 'text', required: true },
+      { id: '3', text: 'How do you handle criticism or feedback? Please describe your reactions.', type: 'text', required: true },
+      { id: '4', text: 'Do you compare yourself to others frequently? Please describe these comparisons.', type: 'text', required: true },
+      { id: '5', text: 'What negative thoughts do you have about yourself? Please share what you feel comfortable with.', type: 'text', required: true },
+      { id: '6', text: 'How confident do you feel in social or work situations? Please explain.', type: 'text', required: true },
+      { id: '7', text: 'Do you celebrate your achievements? Please describe how you acknowledge successes.', type: 'text', required: true },
+      { id: '8', text: 'What do you think contributes to your low self-esteem? Please explain.', type: 'text', required: true },
+      { id: '9', text: 'How does low self-esteem affect your daily life? Please describe the impact.', type: 'text', required: true },
+      { id: '10', text: 'What would help you feel more confident and self-assured?', type: 'text', required: false }
+    ],
+    'emotional-dysregulation': [
+      { id: '1', text: 'Do you experience intense emotions that feel overwhelming? Please describe these experiences.', type: 'text', required: true },
+      { id: '2', text: 'How quickly do your emotions change throughout the day? Please explain the patterns.', type: 'text', required: true },
+      { id: '3', text: 'Do you have difficulty calming down when upset? Please describe your experience.', type: 'text', required: true },
+      { id: '4', text: 'How do you typically express your emotions? Please describe your emotional responses.', type: 'text', required: true },
+      { id: '5', text: 'Do your emotions feel disproportionate to the situation? Please explain when this happens.', type: 'text', required: true },
+      { id: '6', text: 'How do your emotional reactions affect your relationships? Please describe the impact.', type: 'text', required: true },
+      { id: '7', text: 'What triggers your most intense emotional responses? Please list these triggers.', type: 'text', required: true },
+      { id: '8', text: 'Do you use any strategies to manage your emotions? Please describe what you\'ve tried.', type: 'text', required: false },
+      { id: '9', text: 'How long have you struggled with emotional regulation? Please provide details.', type: 'text', required: true },
+      { id: '10', text: 'What would help you feel more emotionally balanced?', type: 'text', required: false }
+    ],
+    'negative-thoughts': [
+      { id: '1', text: 'Do you find yourself stuck in negative thinking patterns? Please describe these thoughts.', type: 'text', required: true },
+      { id: '2', text: 'How much time do you spend overthinking situations? Please explain your thought processes.', type: 'text', required: true },
+      { id: '3', text: 'Do you replay conversations or events in your mind repeatedly? Please describe this experience.', type: 'text', required: true },
+      { id: '4', text: 'What types of negative thoughts are most common for you? Please list them.', type: 'text', required: true },
+      { id: '5', text: 'Do these thought patterns interfere with your daily activities? Please explain how.', type: 'text', required: true },
+      { id: '6', text: 'How do you currently try to stop negative thinking? Please describe your methods.', type: 'text', required: true },
+      { id: '7', text: 'Do you catastrophize or imagine worst-case scenarios? Please explain when this happens.', type: 'text', required: true },
+      { id: '8', text: 'How do these thought patterns affect your mood? Please describe the connection.', type: 'text', required: true },
+      { id: '9', text: 'When did you first notice these negative thinking patterns? Please provide details.', type: 'text', required: true },
+      { id: '10', text: 'What would help you develop more balanced thinking patterns?', type: 'text', required: false }
+    ],
+    'social-anxiety': [
+      { id: '1', text: 'In which social situations do you feel most anxious? Please describe these situations.', type: 'text', required: true },
+      { id: '2', text: 'Do you worry about being judged or embarrassed in social settings? Please explain these concerns.', type: 'text', required: true },
+      { id: '3', text: 'How do you feel before, during, and after social interactions? Please describe your experience.', type: 'text', required: true },
+      { id: '4', text: 'Do you avoid social situations because of anxiety? Please list which ones you avoid.', type: 'text', required: true },
+      { id: '5', text: 'How does social anxiety affect your work or school performance? Please explain the impact.', type: 'text', required: true },
+      { id: '6', text: 'Do you experience physical symptoms in social situations? Please describe what you feel.', type: 'text', required: true },
+      { id: '7', text: 'How has social anxiety affected your friendships and relationships? Please explain.', type: 'text', required: true },
+      { id: '8', text: 'What strategies have you tried to manage social anxiety? Please list them.', type: 'text', required: false },
+      { id: '9', text: 'When did you first notice social anxiety symptoms? Please provide details.', type: 'text', required: true },
+      { id: '10', text: 'What would help you feel more comfortable in social situations?', type: 'text', required: false }
+    ],
+    adjustment: [
+      { id: '1', text: 'What major life changes or transitions are you currently experiencing? Please describe them.', type: 'text', required: true },
+      { id: '2', text: 'How are you coping with these changes? Please describe your adjustment process.', type: 'text', required: true },
+      { id: '3', text: 'Do you feel uncertain about your identity or life direction? Please explain these feelings.', type: 'text', required: true },
+      { id: '4', text: 'How have these changes affected your relationships? Please describe the impact.', type: 'text', required: true },
+      { id: '5', text: 'Do you feel like you\'ve lost your sense of self? Please explain this experience.', type: 'text', required: true },
+      { id: '6', text: 'What aspects of your identity are you questioning? Please describe your concerns.', type: 'text', required: true },
+      { id: '7', text: 'How do you envision your future self? Please describe your hopes and concerns.', type: 'text', required: true },
+      { id: '8', text: 'What support do you have during this transition? Please describe your support system.', type: 'text', required: true },
+      { id: '9', text: 'What values and beliefs are most important to you? Please list them.', type: 'text', required: false },
+      { id: '10', text: 'What would help you feel more grounded and secure in your identity?', type: 'text', required: false }
     ]
   };
 
@@ -269,13 +358,16 @@ const ChatbotPage = () => {
 
   const getRecommendationsForIssue = (issue: string, severity: string): TherapyRecommendation[] => {
     const baseRecommendations: Record<string, string[]> = {
-      anxiety: ['cbt', 'mindfulness', 'exposure', 'music'],
+      'anxiety disorders': ['cbt', 'mindfulness', 'exposure', 'music'],
       depression: ['cbt', 'gratitude', 'video', 'act'],
-      stress: ['stress', 'mindfulness', 'music', 'art'],
-      'sleep problems': ['mindfulness', 'music', 'video', 'stress'],
-      addiction: ['cbt', 'mindfulness', 'video', 'stress'],
-      'low motivation': ['gratitude', 'cbt', 'video', 'act'],
-      'relationship issues': ['video', 'cbt', 'act', 'art']
+      'stress & burnout': ['stress', 'mindfulness', 'music', 'art'],
+      'insomnia & sleep problems': ['mindfulness', 'music', 'video', 'stress'],
+      'trauma & ptsd': ['video', 'mindfulness', 'art', 'act'],
+      'low self-esteem & self-doubt': ['gratitude', 'cbt', 'video', 'act'],
+      'emotional dysregulation': ['mindfulness', 'cbt', 'art', 'video'],
+      'negative thought patterns & overthinking': ['cbt', 'mindfulness', 'video', 'gratitude'],
+      'social anxiety': ['exposure', 'cbt', 'video', 'mindfulness'],
+      'adjustment & identity issues': ['video', 'act', 'gratitude', 'art']
     };
 
     const moduleIds = baseRecommendations[issue] || ['cbt', 'mindfulness', 'video'];
@@ -453,7 +545,7 @@ const ChatbotPage = () => {
                 }`}>
                   What would you like help with today?
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                   {mentalHealthIssues.map((issue) => (
                     <motion.button
                       key={issue.id}
@@ -726,7 +818,7 @@ const ChatbotPage = () => {
         }`}>
           <div className="flex flex-wrap gap-2 justify-center">
             <button
-              onClick={() => startAssessment('anxiety')}
+              onClick={() => startAssessment('anxiety-disorders')}
               className="px-3 py-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full text-sm hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
             >
               Start Assessment
